@@ -1,0 +1,23 @@
+{
+  "extends" : [
+    "eslint:recommended",
+    "plugin:node/recommended",
+    "plugin:promise/recommended"
+  ],
+  "plugins": [
+    "node",
+    "promise"
+  ],
+  "env": {
+    "node" : true,
+    "mocha": true
+  },
+  "globals" : {
+    "artifacts": true,
+    "assert": true,
+    "contract": true
+  },
+  "rules": {
+    "require-atomic-updates": "off"
+  }
+}

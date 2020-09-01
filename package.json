@@ -1,0 +1,49 @@
+{
+  "name": "goldananas-contract",
+  "version": "1.0.0",
+  "description": "Goldananas contract",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "test": "truffle test",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:contract": "solhint contracts/**/*.sol",
+    "compile": "truffle compile",
+    "deploy:contract": "truffle migrate",
+    "deploy:contract:development": "npm run deploy:contract -- --network development",
+    "deploy:contract:ropsten": "npm run deploy:contract -- --network ropsten",
+    "deploy:contract:mainnet": "npm run deploy:contract -- --network mainnet",
+    "truffle-release-list": "truffle compile --list prereleases --all",
+    "eth-node": "ganache-cli -m='sick actual one machine hill audit move swarm aim test vital ignore'"
+  },
+  "author": "Jules Goullée",
+  "license": "MIT",
+  "repository": "https://github.com/julesGoullee/golden-ananas-contract",
+  "dependencies": {
+    "decimal.js": "^10.2.0",
+    "dotenv": "^8.2.0",
+    "ethereumjs-wallet": "^0.6.3",
+    "ethers": "^5.0.9",
+    "lodash.pick": "^4.4.0",
+    "logzio-nodejs": "^2.0.2",
+    "node-fetch": "^2.6.0",
+    "openzeppelin-solidity": "^3.1.0",
+    "truffle": "^5.1.42",
+    "web3": "^1.2.11",
+    "web3-provider-engine": "^15.0.12",
+    "winston": "^3.3.3",
+    "winston-transport": "^4.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.7.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "ganache-cli": "^6.10.1",
+    "solhint": "^3.2.0"
+  },
+  "engines": {
+    "npm": "6.x",
+    "node": "12.x"
+  }
+}
