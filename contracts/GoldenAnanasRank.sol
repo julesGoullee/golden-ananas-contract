@@ -1,17 +1,16 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.6.12;
 pragma experimental ABIEncoderV2;
 
 import "./openzeppelin/SafeMath.sol";
 import "./openzeppelin/IERC20.sol";
 
-import "./AdminRole.sol";
-import "./Executor.sol";
 import "./GoldenAnanasScore.sol";
 
-contract GoldenAnanasRank is ExecutorRole, AdminRole {
+contract GoldenAnanasRank is AccessControl {
 
   using SafeMath for uint;
+  bytes32 public constant EXECUTOR_ROLE = keccak256("EXECUTOR_ROLE");
 
   GoldenAnanasScore public goldenAnanasScore;
   address[] public ranks;
@@ -25,23 +24,29 @@ contract GoldenAnanasRank is ExecutorRole, AdminRole {
 
     goldenAnanasScore = _goldenAnanasScore;
     ranksSize = _ranksSize;
+    _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+    _setupRole(EXECUTOR_ROLE, msg.sender);
 
   }
 
-  function setGoldenAnanasScore(GoldenAnanasScore _goldenAnanasScore) public onlyAdmin {
+  function setGoldenAnanasScore(GoldenAnanasScore _goldenAnanasScore) public {
 
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanasRank: Sender must have admin role");
     goldenAnanasScore = _goldenAnanasScore;
 
   }
 
-  function updateAllRanks(uint256 _level, address _player) public onlyExecutor {
+  function updateAllRanks(uint256 _level, address _player) public {
 
+    require(hasRole(EXECUTOR_ROLE, msg.sender), "GoldenAnanasRank: Sender must have executor role");
     updateRanksByLevel(_level, _player);
     updateRanks(_player);
 
   }
 
-  function updateRanksByLevel(uint256 _level, address _player) public onlyExecutor returns(bool) {
+  function updateRanksByLevel(uint256 _level, address _player) public returns(bool) {
+
+    require(hasRole(EXECUTOR_ROLE, msg.sender), "GoldenAnanasRank: Sender must have executor role");
 
     uint256 scoreLevel = goldenAnanasScore.getScoreByLevel(_level, _player);
     uint256 size = ranksByLevel[_level].length;
@@ -114,8 +119,9 @@ contract GoldenAnanasRank is ExecutorRole, AdminRole {
 
   }
 
-  function updateRanks(address _player) public onlyExecutor returns(bool) {
+  function updateRanks(address _player) public returns(bool) {
 
+    require(hasRole(EXECUTOR_ROLE, msg.sender), "GoldenAnanasRank: Sender must have executor role");
     uint256 score = goldenAnanasScore.getScore(_player);
     uint256 size = ranks.length;
 

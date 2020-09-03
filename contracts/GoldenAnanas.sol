@@ -1,49 +1,65 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.6.12;
 pragma experimental ABIEncoderV2;
 
 import "./openzeppelin/SafeMath.sol";
 import "./openzeppelin/IERC20.sol";
+import "./openzeppelin/AccessControl.sol";
 
-import "./AdminRole.sol";
 import "./GoldenAnanasScore.sol";
 import "./GoldenAnanasRank.sol";
+import "./TrophyToken.sol";
 
-contract GoldenAnanas is AdminRole {
+contract GoldenAnanas is AccessControl {
 
   using SafeMath for uint;
 
   GoldenAnanasScore public goldenAnanasScore;
   GoldenAnanasRank public goldenAnanasRank;
+  TrophyToken public trophyToken;
   uint256 public minContrib;
 
   constructor(
     GoldenAnanasScore _goldenAnanasScore,
     GoldenAnanasRank _goldenAnanasRank,
+    TrophyToken _trophyToken,
     uint256 _minContrib
   ) public {
 
     goldenAnanasScore = _goldenAnanasScore;
     goldenAnanasRank = _goldenAnanasRank;
+    trophyToken = _trophyToken;
+    minContrib = _minContrib;
+    _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+
+  }
+
+  function setMinContrib(uint256 _minContrib) public {
+
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
+
     minContrib = _minContrib;
 
   }
 
-  function setMinContrib(uint256 _minContrib) public onlyAdmin {
+  function setGoldenAnanasScore(GoldenAnanasScore _goldenAnanasScore) public {
 
-    minContrib = _minContrib;
-
-  }
-
-  function setGoldenAnanasScore(GoldenAnanasScore _goldenAnanasScore) public onlyAdmin {
-
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
     goldenAnanasScore = _goldenAnanasScore;
 
   }
 
-  function setGoldenAnanasRank(GoldenAnanasRank _goldenAnanasRank) public onlyAdmin {
+  function setGoldenAnanasRank(GoldenAnanasRank _goldenAnanasRank) public {
 
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
     goldenAnanasRank = _goldenAnanasRank;
+
+  }
+
+  function setTrophyToken(TrophyToken _trophyToken) public {
+
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
+    trophyToken = _trophyToken;
 
   }
 
@@ -53,7 +69,11 @@ contract GoldenAnanas is AdminRole {
 
     uint256 prevScore = goldenAnanasScore.getScoreByLevel(_level, _player);
 
-    if(prevScore != 0){
+    if(prevScore == 0){
+
+      trophyToken.mint(_player, uint256(_player) + _level);
+
+    } else {
 
       require(prevScore > _scoreLevel, "score_lower");
 
@@ -64,8 +84,9 @@ contract GoldenAnanas is AdminRole {
 
   }
 
-  function setScoreFor(uint256 _level, uint256 _scoreLevel, address _player) public onlyAdmin {
+  function setScoreFor(uint256 _level, uint256 _scoreLevel, address _player) public {
 
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
     _setScoreFor(_level, _scoreLevel, _player);
 
   }
@@ -106,14 +127,16 @@ contract GoldenAnanas is AdminRole {
 
   }
 
-  function withdrawToken(IERC20 _token, uint256 _value) onlyAdmin public {
+  function withdrawToken(IERC20 _token, uint256 _value) public {
 
-    _token.transfer(msg.sender, _value);
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
+    _token.transferFrom(address(this), msg.sender, _value);
 
   }
 
-  function withdrawEth(uint256 _value) onlyAdmin public {
+  function withdrawEth(uint256 _value) public {
 
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
     msg.sender.transfer(_value);
 
   }

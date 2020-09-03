@@ -2,6 +2,7 @@ const Ethers = require('ethers');
 const testUtils =require('./utils');
 const GoldenAnanasScore = artifacts.require('GoldenAnanasScore');
 const GoldenAnanasRank = artifacts.require('GoldenAnanasRank');
+const TrophyToken = artifacts.require('TrophyToken');
 const GoldenAnanas = artifacts.require('GoldenAnanas');
 
 contract('GoldenAnanas', (accounts) => {
@@ -22,17 +23,20 @@ contract('GoldenAnanas', (accounts) => {
       this.ranksSize,
       { from: accounts[0] }
     );
+    this.trophyTokenInstance = await TrophyToken.new('Goldananas', 'GANA', { from: accounts[0] });
 
     this.minContrib = Ethers.utils.parseEther('0.05');
     this.ranksSize = 3;
     this.goldenAnanasInstance = await GoldenAnanas.new(
       this.goldenAnanasScoreInstance.address,
       this.goldenAnanasRankInstance.address,
+      this.trophyTokenInstance.address,
       this.minContrib,
       { from: accounts[0] }
     );
-    await this.goldenAnanasScoreInstance.addExecutor(this.goldenAnanasInstance.address, { from: accounts[0] });
-    await this.goldenAnanasRankInstance.addExecutor(this.goldenAnanasInstance.address, { from: accounts[0] });
+    await this.goldenAnanasScoreInstance.grantRole(Ethers.utils.solidityKeccak256(['string'],['EXECUTOR_ROLE']), this.goldenAnanasInstance.address, { from: accounts[0] });
+    await this.goldenAnanasRankInstance.grantRole(Ethers.utils.solidityKeccak256(['string'],['EXECUTOR_ROLE']), this.goldenAnanasInstance.address, { from: accounts[0] });
+    await this.trophyTokenInstance.grantRole('0x0', this.goldenAnanasInstance.address, { from: accounts[0] });
 
   });
 
@@ -46,7 +50,7 @@ contract('GoldenAnanas', (accounts) => {
     const minContribUpdatedVal = await this.goldenAnanasInstance.minContrib();
     assert.equal(minContribUpdatedVal.toString(), minContribUpdated.toString(), 'min contrib updated invalid');
 
-    await testUtils.assertRevert(this.goldenAnanasInstance.setMinContrib(minContrib, { from: accounts[1] }), 'revert AdminRole');
+    await testUtils.assertRevert(this.goldenAnanasInstance.setMinContrib(minContrib, { from: accounts[1] }), 'revert GoldenAnanas: Sender must have admin role');
 
   });
 

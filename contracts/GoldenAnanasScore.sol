@@ -1,15 +1,15 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.6.12;
 pragma experimental ABIEncoderV2;
 
 import "./openzeppelin/SafeMath.sol";
 import "./openzeppelin/IERC20.sol";
-import "./Executor.sol";
-import "./AdminRole.sol";
+import "./openzeppelin/AccessControl.sol";
 
-contract GoldenAnanasScore is ExecutorRole, AdminRole {
+contract GoldenAnanasScore is AccessControl {
 
   using SafeMath for uint;
+  bytes32 public constant EXECUTOR_ROLE = keccak256("EXECUTOR_ROLE");
 
   mapping(uint256 => mapping(address => uint256) ) public scoreByLevel;
   mapping(address => uint256) public score;
@@ -24,19 +24,23 @@ contract GoldenAnanasScore is ExecutorRole, AdminRole {
 
     countLevels = _countLevels;
     scoreBase = _scoreBase;
+    _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+    _setupRole(EXECUTOR_ROLE, msg.sender);
 
   }
 
-  function addLevel() public onlyAdmin returns(bool){
+  function addLevel() public returns(bool){
 
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanasScore: Sender must have admin role");
     countLevels = countLevels.add(1);
 
     return true;
 
   }
 
-  function setScore(uint256 _level, uint256 _score, address _player) public onlyExecutor {
+  function setScore(uint256 _level, uint256 _score, address _player) public {
 
+    require(hasRole(EXECUTOR_ROLE, msg.sender), "GoldenAnanasScore: Sender must have executor role");
     require(_score != 0 && _score < scoreBase, "invalid_score");
     require(_level < countLevels, "invalid_level");
 

@@ -1,3 +1,4 @@
+const Ethers = require('ethers');
 const testUtils =require('./utils');
 const GoldenAnanasScore = artifacts.require('GoldenAnanasScore');
 
@@ -18,7 +19,18 @@ contract('GoldenAnanasScore', (accounts) => {
     await this.goldenAnanasScoreInstance.addLevel({ from: accounts[0] });
     const levelUpdated = await this.goldenAnanasScoreInstance.countLevels();
     assert.equal(levelUpdated.toNumber(), this.countLevels + 1, 'count levels updated invalid');
-    await testUtils.assertRevert(this.goldenAnanasScoreInstance.addLevel({ from: accounts[1] }), 'revert AdminRole');
+    await testUtils.assertRevert(this.goldenAnanasScoreInstance.addLevel({ from: accounts[1] }), 'revert GoldenAnanasScore: Sender must have admin role');
+
+  });
+
+  it('Should set score throw when not executor role', async () => {
+
+    await testUtils.assertRevert(this.goldenAnanasScoreInstance.setScore(0, 1, accounts[1], { from: accounts[1] }), 'revert GoldenAnanasScore: Sender must have executor role');
+    await this.goldenAnanasScoreInstance.grantRole(Ethers.utils.solidityKeccak256(['string'],['EXECUTOR_ROLE']), accounts[1], { from: accounts[0] });
+
+    await this.goldenAnanasScoreInstance.setScore(0, 1, accounts[1], { from: accounts[1] });
+    const scoreByLevel = await this.goldenAnanasScoreInstance.getScoreByLevel(0, accounts[1]);
+    assert.equal(scoreByLevel.toNumber(), 1, 'invalid score by level');
 
   });
 

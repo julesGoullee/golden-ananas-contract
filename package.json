@@ -14,6 +14,7 @@
     "deploy:contract:development": "npm run deploy:contract -- --network development",
     "deploy:contract:ropsten": "npm run deploy:contract -- --network ropsten",
     "deploy:contract:mainnet": "npm run deploy:contract -- --network mainnet",
+    "verify:contract:ropsten": "truffle run verify GoldenAnanasScore GoldenAnanasRank TrophyToken GoldenAnanas --network ropsten --license MIT",
     "truffle-release-list": "truffle compile --list prereleases --all",
     "eth-node": "ganache-cli -m='sick actual one machine hill audit move swarm aim test vital ignore'"
   },
@@ -30,6 +31,7 @@
     "node-fetch": "^2.6.0",
     "openzeppelin-solidity": "^3.1.0",
     "truffle": "^5.1.42",
+    "truffle-plugin-verify": "^0.4.0",
     "web3": "^1.2.11",
     "web3-provider-engine": "^15.0.12",
     "winston": "^3.3.3",

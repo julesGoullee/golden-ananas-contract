@@ -15,7 +15,7 @@ module.exports = {
     development: {
       host: '127.0.0.1',     // Localhost (default: none)
       port: 8545,            // Standard Ethereum port (default: none)
-      gas: 2000000,
+      gas: 5000000,
       gasPrice: Ethers.utils.parseUnits('2', 'gwei').toString(),
       network_id: '*',       // Any network (default: none)
       skipDryRun: true,
@@ -24,7 +24,7 @@ module.exports = {
     ropsten: {
       provider: () => pkProvider('ropsten'),
       network_id: '3',
-      gas: 2000000,
+      gas: 5000000,
       timeoutBlocks: 50000,
       networkCheckTimeout: 50000,
       gasPrice: Ethers.utils.parseUnits('10', 'gwei').toString(),
@@ -93,5 +93,14 @@ module.exports = {
         evmVersion: 'istanbul'
       }
     }
-  }
+  },
+
+  api_keys: {
+    etherscan: Config.etherscanApiKey
+  },
+
+  plugins: [
+    'truffle-plugin-verify'
+  ]
+
 };
