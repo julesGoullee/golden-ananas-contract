@@ -7,6 +7,7 @@ Game source are there: [https://github.com/julesGoullee/golden-ananas](https://g
 ##### Deployment:
 
 - Ropsten: 
-    - goldenAnanasData: 0xC8139dC3DcB99A232F9ca44CF0D07Ba473a11c15
-    - goldenAnanas:0xcb31fA707Eb6515Bc8484fAD9b7077Ecbc094D96
+    - goldenAnanasScore: 0x29fABf2d07685De5dD986eC28aACdCB9B8091C30
+    - goldenAnanasRank: 0xB68f585cfA55feC859Da78eD7E5C60FC18C1C0FB
+    - goldenAnanas: 0x61BEd144331f20B577AACE81EE974f80BBf17169
 

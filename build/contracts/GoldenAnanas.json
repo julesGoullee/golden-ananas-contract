@@ -7690,6 +7690,39 @@
     "version": "0.6.12+commit.27d51765.Emscripten.clang"
   },
   "networks": {
+    "3": {
+      "events": {
+        "0x44d6d25963f097ad14f29f06854a01f575648a1ef82f30e562ccd3889717e339": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "AdminAdded",
+          "type": "event"
+        },
+        "0xa3b62bc36326052d97ea62d63c3d60308ed4c3ea8ac079dd8499f1e9c4f80c0f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "AdminRemoved",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x61BEd144331f20B577AACE81EE974f80BBf17169",
+      "transactionHash": "0xe3d407c741a2b3d0b5ed6d3677c34e6c5656c22dd90cc2cbd02a9f6c8b64cce7"
+    },
     "1597752854155": {
       "events": {
         "0x44d6d25963f097ad14f29f06854a01f575648a1ef82f30e562ccd3889717e339": {
@@ -7953,10 +7986,175 @@
       "links": {},
       "address": "0x9aEAC5B72b511e9C746D912Bf2143F7BadfE58ee",
       "transactionHash": "0x8146691a7be79c11e11f0565979b0363107984ab7acaaaf1b956408370a749ae"
+    },
+    "1599038115466": {
+      "events": {
+        "0x44d6d25963f097ad14f29f06854a01f575648a1ef82f30e562ccd3889717e339": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "AdminAdded",
+          "type": "event"
+        },
+        "0xa3b62bc36326052d97ea62d63c3d60308ed4c3ea8ac079dd8499f1e9c4f80c0f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "AdminRemoved",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x9aEAC5B72b511e9C746D912Bf2143F7BadfE58ee",
+      "transactionHash": "0x8146691a7be79c11e11f0565979b0363107984ab7acaaaf1b956408370a749ae"
+    },
+    "1599046572505": {
+      "events": {
+        "0x44d6d25963f097ad14f29f06854a01f575648a1ef82f30e562ccd3889717e339": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "AdminAdded",
+          "type": "event"
+        },
+        "0xa3b62bc36326052d97ea62d63c3d60308ed4c3ea8ac079dd8499f1e9c4f80c0f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "AdminRemoved",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x9aEAC5B72b511e9C746D912Bf2143F7BadfE58ee",
+      "transactionHash": "0x8146691a7be79c11e11f0565979b0363107984ab7acaaaf1b956408370a749ae"
+    },
+    "1599119519318": {
+      "events": {
+        "0x44d6d25963f097ad14f29f06854a01f575648a1ef82f30e562ccd3889717e339": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "AdminAdded",
+          "type": "event"
+        },
+        "0xa3b62bc36326052d97ea62d63c3d60308ed4c3ea8ac079dd8499f1e9c4f80c0f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "AdminRemoved",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x9aEAC5B72b511e9C746D912Bf2143F7BadfE58ee",
+      "transactionHash": "0x8146691a7be79c11e11f0565979b0363107984ab7acaaaf1b956408370a749ae"
+    },
+    "1599148255376": {
+      "events": {
+        "0x44d6d25963f097ad14f29f06854a01f575648a1ef82f30e562ccd3889717e339": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "AdminAdded",
+          "type": "event"
+        },
+        "0xa3b62bc36326052d97ea62d63c3d60308ed4c3ea8ac079dd8499f1e9c4f80c0f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "AdminRemoved",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x9aEAC5B72b511e9C746D912Bf2143F7BadfE58ee",
+      "transactionHash": "0x8146691a7be79c11e11f0565979b0363107984ab7acaaaf1b956408370a749ae"
+    },
+    "1599149333338": {
+      "events": {
+        "0x44d6d25963f097ad14f29f06854a01f575648a1ef82f30e562ccd3889717e339": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "AdminAdded",
+          "type": "event"
+        },
+        "0xa3b62bc36326052d97ea62d63c3d60308ed4c3ea8ac079dd8499f1e9c4f80c0f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "AdminRemoved",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x9aEAC5B72b511e9C746D912Bf2143F7BadfE58ee",
+      "transactionHash": "0x8146691a7be79c11e11f0565979b0363107984ab7acaaaf1b956408370a749ae"
     }
   },
   "schemaVersion": "3.2.4",
-  "updatedAt": "2020-08-31T09:31:47.429Z",
+  "updatedAt": "2020-09-03T16:09:06.430Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
