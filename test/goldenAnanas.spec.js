@@ -25,32 +25,16 @@ contract('GoldenAnanas', (accounts) => {
     );
     this.trophyTokenInstance = await TrophyToken.new('Goldananas', 'GANA', { from: accounts[0] });
 
-    this.minContrib = Ethers.utils.parseEther('0.05');
     this.ranksSize = 3;
     this.goldenAnanasInstance = await GoldenAnanas.new(
       this.goldenAnanasScoreInstance.address,
       this.goldenAnanasRankInstance.address,
       this.trophyTokenInstance.address,
-      this.minContrib,
       { from: accounts[0] }
     );
     await this.goldenAnanasScoreInstance.grantRole(Ethers.utils.solidityKeccak256(['string'],['EXECUTOR_ROLE']), this.goldenAnanasInstance.address, { from: accounts[0] });
     await this.goldenAnanasRankInstance.grantRole(Ethers.utils.solidityKeccak256(['string'],['EXECUTOR_ROLE']), this.goldenAnanasInstance.address, { from: accounts[0] });
     await this.trophyTokenInstance.grantRole('0x0', this.goldenAnanasInstance.address, { from: accounts[0] });
-
-  });
-
-  it('Should set minContrib', async () => {
-
-    const minContrib = await this.goldenAnanasInstance.minContrib();
-    assert.equal(minContrib.toString(), this.minContrib.toString(), 'min contrib invalid');
-
-    const minContribUpdated = Ethers.utils.parseEther('0.01');
-    await this.goldenAnanasInstance.setMinContrib(minContribUpdated, { from: accounts[0] });
-    const minContribUpdatedVal = await this.goldenAnanasInstance.minContrib();
-    assert.equal(minContribUpdatedVal.toString(), minContribUpdated.toString(), 'min contrib updated invalid');
-
-    await testUtils.assertRevert(this.goldenAnanasInstance.setMinContrib(minContrib, { from: accounts[1] }), 'revert GoldenAnanas: Sender must have admin role');
 
   });
 
@@ -108,24 +92,25 @@ contract('GoldenAnanas', (accounts) => {
 
   });
 
-  it('Should setScore throw if contribution too low', async () => {
-
-    await this.goldenAnanasInstance.setScore(0, 123, { from: accounts[1], value: 0 });
-    await testUtils.assertRevert(this.goldenAnanasInstance.setScore(1, 1, { from: accounts[1], value: 0 }), 'revert contribution_too_low');
-
-  });
-
   it('Should setScore throw if previous level not complete', async () => {
 
-    await testUtils.assertRevert(this.goldenAnanasInstance.setScore(1, 1, { from: accounts[1], value: this.minContrib.toString() }), 'revert invalid_player_data');
+    await testUtils.assertRevert(this.goldenAnanasInstance.setScore(1, 1, { from: accounts[1] }), 'revert GoldenAnanas: invalid player data');
 
   });
 
   it('Should setScore throw if previous level have the lowest time score', async () => {
 
-    await this.goldenAnanasInstance.setScore(0, 123, { from: accounts[1], value: 0 });
-    await this.goldenAnanasInstance.setScore(1, 12, { from: accounts[1], value: this.minContrib.toString() });
-    await testUtils.assertRevert(this.goldenAnanasInstance.setScore(1, 123, { from: accounts[1], value: this.minContrib.toString() }), 'revert score_lower');
+    await this.goldenAnanasInstance.setScore(0, 123, { from: accounts[1] });
+    await this.goldenAnanasInstance.setScore(1, 12, { from: accounts[1] });
+    await testUtils.assertRevert(this.goldenAnanasInstance.setScore(1, 123, { from: accounts[1] }), 'revert GoldenAnanas: score lower');
+
+  });
+
+  it('Should batchSetScore', async () => {
+
+    await this.goldenAnanasInstance.batchSetScore([0, 1], [123, 12], { from: accounts[1] });
+    const score = await this.goldenAnanasInstance.getScore({ from: accounts[1] });
+    assert.equal(score.toNumber(), 199865, 'score updated invalid');
 
   });
 

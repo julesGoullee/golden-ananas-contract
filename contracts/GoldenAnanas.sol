@@ -17,91 +17,21 @@ contract GoldenAnanas is AccessControl {
   GoldenAnanasScore public goldenAnanasScore;
   GoldenAnanasRank public goldenAnanasRank;
   TrophyToken public trophyToken;
-  uint256 public minContrib;
 
   constructor(
     GoldenAnanasScore _goldenAnanasScore,
     GoldenAnanasRank _goldenAnanasRank,
-    TrophyToken _trophyToken,
-    uint256 _minContrib
+    TrophyToken _trophyToken
   ) public {
 
     goldenAnanasScore = _goldenAnanasScore;
     goldenAnanasRank = _goldenAnanasRank;
     trophyToken = _trophyToken;
-    minContrib = _minContrib;
     _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
 
   }
 
-  function setMinContrib(uint256 _minContrib) public {
-
-    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
-
-    minContrib = _minContrib;
-
-  }
-
-  function setGoldenAnanasScore(GoldenAnanasScore _goldenAnanasScore) public {
-
-    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
-    goldenAnanasScore = _goldenAnanasScore;
-
-  }
-
-  function setGoldenAnanasRank(GoldenAnanasRank _goldenAnanasRank) public {
-
-    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
-    goldenAnanasRank = _goldenAnanasRank;
-
-  }
-
-  function setTrophyToken(TrophyToken _trophyToken) public {
-
-    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
-    trophyToken = _trophyToken;
-
-  }
-
-  function _setScoreFor(uint256 _level, uint256 _scoreLevel, address _player) private {
-
-    require(_level == 0 || goldenAnanasScore.scoreByLevel(_level -1, _player) != 0, "invalid_player_data");
-
-    uint256 prevScore = goldenAnanasScore.getScoreByLevel(_level, _player);
-
-    if(prevScore == 0){
-
-      trophyToken.mint(_player, uint256(_player) + _level);
-
-    } else {
-
-      require(prevScore > _scoreLevel, "score_lower");
-
-    }
-
-    goldenAnanasScore.setScore(_level, _scoreLevel, _player);
-    goldenAnanasRank.updateAllRanks(_level, _player);
-
-  }
-
-  function setScoreFor(uint256 _level, uint256 _scoreLevel, address _player) public {
-
-    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
-    _setScoreFor(_level, _scoreLevel, _player);
-
-  }
-
-  function setScore(uint256 _level, uint256 _scoreLevel) public payable {
-
-    if(_level == goldenAnanasScore.countLevels() - 1){
-
-      require(msg.value >= minContrib, "contribution_too_low");
-
-    }
-
-    _setScoreFor(_level, _scoreLevel, msg.sender);
-
-  }
+  // Public -- View
 
   function getScore() public view returns (uint256){
 
@@ -127,6 +57,54 @@ contract GoldenAnanas is AccessControl {
 
   }
 
+  // Public -- Modifier
+
+  function setScore(uint256 _level, uint256 _scoreLevel) public {
+
+    _setScoreFor(_level, _scoreLevel, msg.sender);
+
+  }
+
+  function batchSetScore(uint256[] memory _level, uint256[] memory _scoreLevel) public {
+
+    for (uint i = 0; i < _level.length; i++) {
+
+      _setScoreFor(_level[i], _scoreLevel[i], msg.sender);
+
+    }
+
+  }
+
+  // Public - Admin
+
+  function setScoreFor(uint256 _level, uint256 _scoreLevel, address _player) public {
+
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
+    _setScoreFor(_level, _scoreLevel, _player);
+
+  }
+
+  function setGoldenAnanasScore(GoldenAnanasScore _goldenAnanasScore) public {
+
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
+    goldenAnanasScore = _goldenAnanasScore;
+
+  }
+
+  function setGoldenAnanasRank(GoldenAnanasRank _goldenAnanasRank) public {
+
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
+    goldenAnanasRank = _goldenAnanasRank;
+
+  }
+
+  function setTrophyToken(TrophyToken _trophyToken) public {
+
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
+    trophyToken = _trophyToken;
+
+  }
+
   function withdrawToken(IERC20 _token, uint256 _value) public {
 
     require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
@@ -134,15 +112,32 @@ contract GoldenAnanas is AccessControl {
 
   }
 
-  function withdrawEth(uint256 _value) public {
+  // Private
+  function _setScoreFor(uint256 _level, uint256 _scoreLevel, address _player) private {
 
-    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
-    msg.sender.transfer(_value);
+    require(_level == 0 || goldenAnanasScore.scoreByLevel(_level -1, _player) != 0, "GoldenAnanas: invalid player data");
+
+    uint256 prevScore = goldenAnanasScore.getScoreByLevel(_level, _player);
+
+    if(prevScore == 0){
+
+      trophyToken.mint(_player, uint256(_player) + _level);
+
+    } else {
+
+      require(prevScore > _scoreLevel, "GoldenAnanas: score lower");
+
+    }
+
+    goldenAnanasScore.setScore(_level, _scoreLevel, _player);
+    goldenAnanasRank.updateAllRanks(_level, _player);
 
   }
 
-  fallback() external payable {}
+  receive() external payable {
 
-  receive() external payable {}
+    revert("GoldenAnanas: ether not accepted");
+
+  }
 
 }

@@ -4,8 +4,6 @@ const GoldenAnanas = artifacts.require('GoldenAnanas');
 const TrophyToken = artifacts.require('TrophyToken');
 const Ethers = require('ethers');
 
-const Config = require('../config');
-
 module.exports = async function(deployer) {
 
   const goldenAnanasScoreInstance = await GoldenAnanasScore.deployed();
@@ -16,8 +14,7 @@ module.exports = async function(deployer) {
     GoldenAnanas,
     GoldenAnanasScore.address,
     GoldenAnanasRank.address,
-    trophyTokenInstance.address,
-    Ethers.utils.parseEther(Config.minContribution)
+    trophyTokenInstance.address
   );
 
   await goldenAnanasScoreInstance.grantRole(Ethers.utils.solidityKeccak256(['string'],['EXECUTOR_ROLE']), GoldenAnanas.address);
