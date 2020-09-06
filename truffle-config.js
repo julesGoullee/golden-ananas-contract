@@ -60,7 +60,6 @@ module.exports = {
       version: '0.6.12',
       // parser: 'solcjs',
       settings: {
-        //https://solidity.readthedocs.io/en/v0.6.1/using-the-compiler.html#compiler-input-and-output-json-description
         optimizer: {
           enabled: true,
           runs: 200,
