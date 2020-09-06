@@ -1,6 +1,6 @@
 ## Goldananas contract
 
-This repository contains a set of Ethereum smart contract use for Mini arcade game in [Decentraland](https://decentraland.org) metaverse.
+This repository contains a set of Ethereum smart contract use to build game in [Decentraland](https://decentraland.org) metaverse.
 Game source is there: [https://github.com/julesGoullee/golden-ananas](https://github.com/julesGoullee/golden-ananas)
 
 Contracts follow [OpenZeppelin](https://github.com/OpenZeppelin/openzeppelin-contracts) implementations for: ERC20, ERC721, role-based permissioning scheme.
