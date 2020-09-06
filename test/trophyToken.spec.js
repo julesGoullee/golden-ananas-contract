@@ -6,7 +6,7 @@ contract('TrophyToken', (accounts) => {
 
     this.countLevels = 2;
     this.scoreBase = 100000;
-    this.trophyTokenInstance = await TrophyToken.new('Goldananas', 'GANA', { from: accounts[0] });
+    this.trophyTokenInstance = await TrophyToken.new('Golden ananas', 'GANA', { from: accounts[0] });
 
   });
 

@@ -1,4 +1,4 @@
-## Goldananas contract
+## Golden ananas contract
 
 This repository contains a set of Ethereum smart contract use to build a game in [Decentraland](https://decentraland.org) metaverse.
 Game source is there: [https://github.com/julesGoullee/golden-ananas](https://github.com/julesGoullee/golden-ananas)

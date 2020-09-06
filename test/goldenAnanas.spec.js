@@ -23,7 +23,7 @@ contract('GoldenAnanas', (accounts) => {
       this.ranksSize,
       { from: accounts[0] }
     );
-    this.trophyTokenInstance = await TrophyToken.new('Goldananas', 'GANA', { from: accounts[0] });
+    this.trophyTokenInstance = await TrophyToken.new('Golden ananas', 'GANA', { from: accounts[0] });
 
     this.ranksSize = 3;
     this.goldenAnanasInstance = await GoldenAnanas.new(

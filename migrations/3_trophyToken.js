@@ -4,7 +4,7 @@ module.exports = async function(deployer) {
 
   await deployer.deploy(
     TrophyToken,
-    'Goldananas',
+    'Golden ananas',
     'GANA',
   );
 

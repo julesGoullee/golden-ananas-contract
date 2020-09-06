@@ -1,7 +1,7 @@
 {
-  "name": "goldananas-contract",
+  "name": "golden-ananas-contract",
   "version": "1.0.0",
-  "description": "Goldananas contract",
+  "description": "Golden ananas contract",
   "private": true,
   "main": "src/index.js",
   "scripts": {
