@@ -22,10 +22,13 @@ Designed to be modular and reduce risk by separate logic and data at the expense
     - GoldenAnanasRank: 0x750f39ABaaadA1E8d5cf6606c300aAeb5094857C
     - TrophyToken: 0x9aEAC5B72b511e9C746D912Bf2143F7BadfE58ee
     - GoldenAnanas: 0x407De3b78F391a75fC4F5b709E5C7aFB71174e9E
+    - manaToken: 0x407De3b78F391a75fC4F5b709E5C7aFB71174e9E
     
 - Ropsten: 
-    - GoldenAnanasScore: 0xB1F3031A4ed1548711783A8eCC18104468650609
-    - GoldenAnanasRanGk: 0xd63EG96454361b1d18c3a88460dD966634acDaBE5
-    - TrophyToken: 0x62448c4bFf3B8aA89DA05E56fFc22017CcDD5e0f
-    - GoldenAnanas: 0x24C08142dD48ca242DdC2D08220666f7F1d5bB3f
+    - GoldenAnanasScore: 0x3EC2dAF32773EE07A9A6B48F507F42b7bf6160D5
+    - GoldenAnanasRank: 0x224210abbE87993Ae0F3d47E5e4Ca2C61e497611
+    - TrophyToken: 0x74550B5817CD3be52914f0C1A40b5784D2827844
+    - GoldenAnanas: 0xe7d94aCE77779AfB9aC6467DEa1839D2277460b2
+    - manaToken: 0xCEAdf25c74608e8945e44EDb025b7f1F40609787 (fake), 0x2a8fd99c19271f4f04b1b7b9c4f7cf264b626edb (from decentraland)
+    
 
