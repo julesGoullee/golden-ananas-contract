@@ -7,7 +7,7 @@ module.exports = async function(deployer) {
     ManaToken,
     'Mana',
     'MANA',
-    Ethers.utils.parseEther('100')
+    Ethers.utils.parseEther('100000')
   );
 
 };

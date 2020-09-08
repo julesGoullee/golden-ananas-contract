@@ -16,7 +16,7 @@
     "deploy:contract:mainnet": "npm run deploy:contract -- --network mainnet",
     "verify:contract:ropsten": "truffle run verify GoldenAnanasScore GoldenAnanasRank TrophyToken GoldenAnanas --network ropsten --license MIT",
     "truffle-release-list": "truffle compile --list prereleases --all",
-    "eth-node": "ganache-cli -m='sick actual one machine hill audit move swarm aim test vital ignore' -i=1234"
+    "eth-node": "ganache-cli -m='sick actual one machine hill audit move swarm aim test vital ignore'"
   },
   "author": "Jules Goullée",
   "license": "MIT",
