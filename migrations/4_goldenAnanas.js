@@ -14,7 +14,7 @@ module.exports = async function(deployer) {
     GoldenAnanas,
     GoldenAnanasScore.address,
     GoldenAnanasRank.address,
-    trophyTokenInstance.address
+    TrophyToken.address
   );
 
   await goldenAnanasScoreInstance.grantRole(Ethers.utils.solidityKeccak256(['string'],['EXECUTOR_ROLE']), GoldenAnanas.address);

@@ -1,11 +1,10 @@
-const PrivateKeyProvider = require('./truffleProviders/privateKey');
 const Ethers = require('ethers');
-
+const HDWalletProvider = require('@truffle/hdwallet-provider');
 const Config = require('./config');
 
 const pkProvider = network => {
   // return new PrivateKeyProvider(Config.privateKey, `https://cloudflare-eth.com`);
-  return new PrivateKeyProvider(Config.privateKey, `https://${network}.infura.io/v3/${Config.infuraApiKey}`);
+  return new HDWalletProvider(Config.privateKey, `https://${network}.infura.io/v3/${Config.infuraApiKey}`);
 };
 
 module.exports = {
@@ -15,7 +14,7 @@ module.exports = {
     development: {
       host: '127.0.0.1',     // Localhost (default: none)
       port: 8545,            // Standard Ethereum port (default: none)
-      gas: 5000000,
+      gas: 3000000,
       gasPrice: Ethers.utils.parseUnits('2', 'gwei').toString(),
       network_id: '*',       // Any network (default: none)
       skipDryRun: true,
@@ -24,7 +23,7 @@ module.exports = {
     ropsten: {
       provider: () => pkProvider('ropsten'),
       network_id: '3',
-      gas: 5000000,
+      gas: 3000000,
       timeoutBlocks: 50000,
       networkCheckTimeout: 50000,
       gasPrice: Ethers.utils.parseUnits('10', 'gwei').toString(),
@@ -34,7 +33,7 @@ module.exports = {
     rinkeby: {
       provider: () => pkProvider('rinkeby'),
       network_id: '4',
-      gas: 2000000,
+      gas: 3000000,
       timeoutBlocks: 50000,
       networkCheckTimeout: 50000,
       gasPrice: Ethers.utils.parseUnits('2', 'gwei').toString(),
@@ -44,7 +43,7 @@ module.exports = {
     mainnet: {
       provider: () => pkProvider('mainnet'),
       network_id: '1',
-      gas: 2000000,
+      gas: 3000000,
       gasPrice: Ethers.utils.parseUnits(    '2.5', 'gwei').toString(),
       timeoutBlocks: 500000,
       networkCheckTimeout: 500000,

@@ -28,7 +28,7 @@ Designed to be modular and reduce risk by separate logic and data at the expense
     - GoldenAnanasScore: 0x3EC2dAF32773EE07A9A6B48F507F42b7bf6160D5
     - GoldenAnanasRank: 0x224210abbE87993Ae0F3d47E5e4Ca2C61e497611
     - TrophyToken: 0x74550B5817CD3be52914f0C1A40b5784D2827844
-    - GoldenAnanas: 0xe7d94aCE77779AfB9aC6467DEa1839D2277460b2
+    - GoldenAnanas: 0xb0f0FE0A407E055Dc0d6C0d66421501975739dEc
     - manaToken: 0xCEAdf25c74608e8945e44EDb025b7f1F40609787 (fake), 0x2a8Fd99c19271F4F04B1B7b9c4f7cF264b626eDB (from decentraland)
     
 

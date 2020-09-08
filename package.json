@@ -22,9 +22,9 @@
   "license": "MIT",
   "repository": "https://github.com/julesGoullee/golden-ananas-contract",
   "dependencies": {
+    "@truffle/hdwallet-provider": "^1.0.43",
     "decimal.js": "^10.2.0",
     "dotenv": "^8.2.0",
-    "ethereumjs-wallet": "^0.6.3",
     "ethers": "^5.0.9",
     "lodash.pick": "^4.4.0",
     "logzio-nodejs": "^2.0.2",
@@ -33,7 +33,6 @@
     "truffle": "^5.1.42",
     "truffle-plugin-verify": "^0.4.0",
     "web3": "^1.2.11",
-    "web3-provider-engine": "^15.0.12",
     "winston": "^3.3.3",
     "winston-transport": "^4.4.0"
   },
