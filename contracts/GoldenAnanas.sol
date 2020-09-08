@@ -62,6 +62,7 @@ contract GoldenAnanas is AccessControl {
   function setScore(uint256 _level, uint256 _scoreLevel) public {
 
     _setScoreFor(_level, _scoreLevel, msg.sender);
+    goldenAnanasRank.updateAllRanks(_level, msg.sender);
 
   }
 
@@ -70,8 +71,11 @@ contract GoldenAnanas is AccessControl {
     for (uint i = 0; i < _level.length; i++) {
 
       _setScoreFor(_level[i], _scoreLevel[i], msg.sender);
+      goldenAnanasRank.updateRanksByLevel(_level[i], msg.sender);
 
     }
+
+    goldenAnanasRank.updateRanks(msg.sender);
 
   }
 
@@ -81,6 +85,7 @@ contract GoldenAnanas is AccessControl {
 
     require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "GoldenAnanas: Sender must have admin role");
     _setScoreFor(_level, _scoreLevel, _player);
+    goldenAnanasRank.updateAllRanks(_level, _player);
 
   }
 
@@ -115,7 +120,7 @@ contract GoldenAnanas is AccessControl {
   // Private
   function _setScoreFor(uint256 _level, uint256 _scoreLevel, address _player) private {
 
-    require(_level == 0 || goldenAnanasScore.scoreByLevel(_level -1, _player) != 0, "GoldenAnanas: invalid player data");
+//    require(_level == 0 || goldenAnanasScore.scoreByLevel(_level -1, _player) != 0, "GoldenAnanas: invalid player data");
 
     uint256 prevScore = goldenAnanasScore.getScoreByLevel(_level, _player);
 
@@ -130,7 +135,6 @@ contract GoldenAnanas is AccessControl {
     }
 
     goldenAnanasScore.setScore(_level, _scoreLevel, _player);
-    goldenAnanasRank.updateAllRanks(_level, _player);
 
   }
 
